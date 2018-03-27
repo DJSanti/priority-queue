@@ -7,10 +7,10 @@ Program: sjf.c
 /*
 * ADT Priority Queue in C
 */
-/* Purpose: To sort incoming processes by burst time and display them from longest to shortest
-	    times, with the largest value on the left and the smallest value on the right. The 
-	    processes are then dispatched right to left since it is organized for the shortest
-	    job to be executed first.
+/* Purpose: To take in new processes and execute them according to the order in which they arrived in 
+	    the queue. Processes are displayed left to right, with the leftmost burst time being P1 and
+	    the rightmost being whichever process has most recently arrived. This program implements First
+	    Come First Serve.
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@ Program: sjf.c
 void insert_by_priority(int); 
 void delete_by_priority(int);
 void create();
-void check(int);
+// check function was deleted
 void display_pqueue();
 
 int pri_que[MAX]; // priority queue, and variables to identify first and last spots in the queue (which is an array)
@@ -105,18 +105,7 @@ void insert_by_priority(int data) // data is n from above
 		return;
 
 }
-
-/* Function to check priority and place element */
-void check(int data) // data is n from above -- this function was pretty much kept the same
-{
-	int i;
-	// for i in priority queue, as long as it's not at the end of the queue
-	for (i = 0; i <= rear; i++)
-	{
-			pri_que[i] = data; // item is equal to data
-			return;
-	}
-}
+// got rid of check function, since it wasn't being used for this program
 
 /* Function to delete queue elements */
 void delete_by_priority(int data) 
