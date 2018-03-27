@@ -7,7 +7,11 @@ Program: sjf.c
 /*
 * ADT Priority Queue in C
 */
-
+/* Purpose: To sort incoming processes by burst time and display them from longest to shortest
+	    times, with the largest value on the left and the smallest value on the right. The 
+	    processes are then dispatched right to left since it is organized for the shortest
+	    job to be executed first.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
