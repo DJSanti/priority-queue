@@ -1,13 +1,17 @@
 /************************************** 
 Name: Samantha Santiago
 Class: 345-002 (Operating Systems)
-Date: 03/26/2018
+Date: 03/27/2018
 Program: sjf.c
 ***************************************/
 /*
 * ADT Priority Queue in C
 */
-
+/* Purpose: To sort incoming processes by burst time and display them from longest to shortest
+	    times, with the largest value on the left and the smallest value on the right. The 
+	    processes are then dispatched right to left since it is organized for the shortest
+	    job to be executed first.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -19,14 +23,14 @@ void create();
 void check(int);
 void display_pqueue();
 
-int pri_que[MAX];
+int pri_que[MAX]; // priority queue, and variables to identify first and last spots in the queue (which is an array)
 int front, rear;
 int x=1; // identifies process
 
 int main()
 {
 	int n, ch;
-	int i=0, Tot_time=0; //i=0 so that I can do the functions below (arrays start at 0)
+	int i=0, Tot_time=0; //i=0 so that I can do the functions below (arrays start at 0). It's a counter.
 
 	printf("\n1 - Insert a process into queue");
 	printf("\n2 - Dispatch processes in queue");
@@ -42,10 +46,10 @@ int main()
 		switch (ch)
 		{
 		case 1: 
-			printf("\nEnter Estimated Burst time of process %d: ", x); // made global variable for PID
+			printf("\nEnter Estimated Burst time of process %d: ", x); // made global variable for PID (x)
 			scanf("%d",&n);
 			insert_by_priority(n); 
-			x=x+1; // moves on to next process
+			x=x+1; // moves on to next process the next time this case is called
 			break;
 		case 2: // Dispatch i.e. invoke CPU scheduler
 			// function to get total time, which is the sum of all the burst times
@@ -94,10 +98,10 @@ void insert_by_priority(int data) // data is n from above
 		printf("\nQueue overflow - no more elements can be inserted");
 		return;
 	}
-		// counter of rear increased
+		// counter of rear increased, while front is always kept at 0
 		front = 0;
 		rear++;
-		pri_que[rear] = data; // item at beginning of queue is made equal to data.
+		pri_que[rear] = data; // every new burst time is inserted to the right of the last one
 		return;
 
 }
@@ -136,7 +140,7 @@ void delete_by_priority(int data)
 		}
 	}
 	front = -1;
-	rear = -1; // makes it so that technically, the array is 'emptied'
+	rear = -1; // makes it so that technically, the array is 'emptied'. This works because the array has to start at 0.
 	x = 1; // resets process counter so that the next batch of processes starts at 1
 	
 	// got rid of printf here because it irked me
@@ -154,7 +158,7 @@ void display_pqueue()
 	for (; front <= rear; front++)
 	{
 		printf(" %d ", pri_que[front]); // prints contents of queue, which are now reading from left to right in the order in which they arrived
-	}									// for the sake of this program, we'll say the program all the way on the left is executed first, since it's FCFS
+	}	// for the sake of this program, we'll say the program all the way on the left is executed first, since it's FCFS
 	
-	front = 0; 
+	front = 0; // front is made equal to 0
 }
